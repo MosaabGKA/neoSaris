@@ -8,6 +8,7 @@ const buildParams = ({
   groupId = "",
   apiKey = "",
   apiSecret = "",
+  asManager = false,
 }) => {
   if (!isPrivate) {
     return {
@@ -17,7 +18,7 @@ const buildParams = ({
   const time = `${Math.floor(Date.now() / 1000)}`;
   const groupCode = groupId;
   const rand = "123456";
-  const str = `${rand}/${method}?apiKey=${apiKey}&contestId=${contestId}&groupCode=${groupCode}&time=${time}#${apiSecret}`;
+  const str = `${rand}/${method}?apiKey=${apiKey}&asManager=${asManager}&contestId=${contestId}&groupCode=${groupCode}&time=${time}#${apiSecret}`;
   const hash = sha512(encodeURI(str));
   return {
     groupCode,
@@ -25,6 +26,7 @@ const buildParams = ({
     apiKey,
     time,
     apiSig: rand + hash,
+    asManager,
   };
 };
 
@@ -41,6 +43,7 @@ export const getSubmissions = async ({
   groupId = "",
   apiKey = "",
   apiSecret = "",
+  asManager = false,
 }) => {
   const { data: response } = await axios
     .request({
@@ -54,6 +57,7 @@ export const getSubmissions = async ({
         groupId,
         apiKey,
         apiSecret,
+        asManager,
       }),
     })
     .catch(error => {
@@ -82,6 +86,7 @@ export const getContestData = async ({
   groupId = "",
   apiKey = "",
   apiSecret = "",
+  asManager = false,
 }) => {
   const { data: response } = await axios
     .request({
@@ -95,6 +100,7 @@ export const getContestData = async ({
         groupId,
         apiKey,
         apiSecret,
+        asManager,
       }),
     })
     .catch(error => {
@@ -129,6 +135,7 @@ export const getContestDataWithCodeforcesAPI = async ({
   groupId = "",
   apiKey = "",
   apiSecret = "",
+  asManager = false,
 }) => {
   const contestData = await getContestData({
     frozenTime,
@@ -137,6 +144,7 @@ export const getContestDataWithCodeforcesAPI = async ({
     groupId,
     apiKey,
     apiSecret,
+    asManager,
   });
   const submissions = await getSubmissions({
     duration: contestData.contestData.duration,
@@ -145,6 +153,7 @@ export const getContestDataWithCodeforcesAPI = async ({
     groupId,
     apiKey,
     apiSecret,
+    asManager,
   });
   const JSONobject = {
     contestMetadata: contestData.contestData,

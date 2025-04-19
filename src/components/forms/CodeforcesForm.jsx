@@ -8,6 +8,7 @@ const CodeforcesForm = ({ setContestData, setStep }) => {
   const [apiKey, setApiKey] = useState("");
   const [apiSecret, setApiSecret] = useState("");
   const [frozenTime, setFrozenTime] = useState(60);
+  const [asManager, setAsManager] = useState(false);  
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -21,6 +22,7 @@ const CodeforcesForm = ({ setContestData, setStep }) => {
           groupId,
           apiKey,
           apiSecret,
+          asManager,
         })
       );
       setStep("resolver");
@@ -60,6 +62,16 @@ const CodeforcesForm = ({ setContestData, setStep }) => {
           <span className="slider round"></span>
         </label>
       </fieldset>
+
+      {isPrivate && (
+        <fieldset className="form-field form-switch">
+          <label>Are You Manager? </label>
+          <label className="switch">
+            <input type="checkbox" onChange={e => setAsManager(e.target.checked)} />
+            <span className="slider round"></span>
+          </label>
+        </fieldset>
+      )}
 
       {isPrivate && (
         <fieldset className="form-field">
