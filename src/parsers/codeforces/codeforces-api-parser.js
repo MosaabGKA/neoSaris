@@ -72,7 +72,7 @@ export const getSubmissions = async ({
       return {
         timeSubmitted: Math.floor(submission.relativeTimeSeconds / 60),
         contestantName:
-          submission.author.teamName || submission.author.members[0].handle || "NO_TEAM_NAME",
+          submission.author.teamName || submission.author.members[0].name || submission.author.members[0].handle || "NO_TEAM_NAME",
         problemIndex: submission.problem.index,
         verdict: submission.verdict,
       };
@@ -122,7 +122,7 @@ export const getContestData = async ({
     contestants: response.result.rows.map((row, index) => {
       return {
         id: index,
-        name: row.party.teamName || row.party.members[0].handle || `NO_TEAM_NAME_${id}`,
+        name: row.party.teamName || row.party.members[0].name || row.party.members[0].handle || `NO_TEAM_NAME_${id}`,
       };
     }),
   };
