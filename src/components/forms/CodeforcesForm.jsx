@@ -4,7 +4,6 @@ import { getContestDataWithCodeforcesAPI } from "../../parsers/codeforces/codefo
 const CodeforcesForm = ({ setContestData, setStep }) => {
   const [contestId, setContestId] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
-  const [groupId, setGroupId] = useState("");
   const [apiKey, setApiKey] = useState("");
   const [apiSecret, setApiSecret] = useState("");
   const [frozenTime, setFrozenTime] = useState(60);
@@ -19,7 +18,6 @@ const CodeforcesForm = ({ setContestData, setStep }) => {
           frozenTime,
           contestId,
           isPrivate,
-          groupId,
           apiKey,
           apiSecret,
           asManager,
@@ -70,18 +68,6 @@ const CodeforcesForm = ({ setContestData, setStep }) => {
             <input type="checkbox" onChange={e => setAsManager(e.target.checked)} />
             <span className="slider round"></span>
           </label>
-        </fieldset>
-      )}
-
-      {isPrivate && (
-        <fieldset className="form-field">
-          <label>Group ID:</label>
-          <input
-            type="text"
-            name="cf_group_id"
-            required
-            onChange={e => setGroupId(e.target.value)}
-          />
         </fieldset>
       )}
 

@@ -5,7 +5,6 @@ const buildParams = ({
   method,
   contestId,
   isPrivate = false,
-  groupId = "",
   apiKey = "",
   apiSecret = "",
   asManager = false,
@@ -16,12 +15,10 @@ const buildParams = ({
     };
   }
   const time = `${Math.floor(Date.now() / 1000)}`;
-  const groupCode = groupId;
   const rand = "123456";
-  const str = `${rand}/${method}?apiKey=${apiKey}&asManager=${asManager}&contestId=${contestId}&groupCode=${groupCode}&time=${time}#${apiSecret}`;
+  const str = `${rand}/${method}?apiKey=${apiKey}&asManager=${asManager}&contestId=${contestId}&time=${time}#${apiSecret}`;
   const hash = sha512(encodeURI(str));
   return {
-    groupCode,
     contestId,
     apiKey,
     time,
@@ -40,7 +37,6 @@ export const getSubmissions = async ({
   duration,
   contestId,
   isPrivate = false,
-  groupId = "",
   apiKey = "",
   apiSecret = "",
   asManager = false,
@@ -54,7 +50,6 @@ export const getSubmissions = async ({
         method: "contest.status",
         contestId,
         isPrivate,
-        groupId,
         apiKey,
         apiSecret,
         asManager,
@@ -83,7 +78,6 @@ export const getContestData = async ({
   frozenTime = 60,
   contestId,
   isPrivate = false,
-  groupId = "",
   apiKey = "",
   apiSecret = "",
   asManager = false,
@@ -97,7 +91,6 @@ export const getContestData = async ({
         method: "contest.standings",
         contestId,
         isPrivate,
-        groupId,
         apiKey,
         apiSecret,
         asManager,
@@ -132,7 +125,6 @@ export const getContestDataWithCodeforcesAPI = async ({
   frozenTime,
   contestId,
   isPrivate = false,
-  groupId = "",
   apiKey = "",
   apiSecret = "",
   asManager = false,
@@ -141,7 +133,6 @@ export const getContestDataWithCodeforcesAPI = async ({
     frozenTime,
     contestId,
     isPrivate,
-    groupId,
     apiKey,
     apiSecret,
     asManager,
@@ -150,7 +141,6 @@ export const getContestDataWithCodeforcesAPI = async ({
     duration: contestData.contestData.duration,
     contestId,
     isPrivate,
-    groupId,
     apiKey,
     apiSecret,
     asManager,
